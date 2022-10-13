@@ -14,9 +14,6 @@ export const MyPosts = () => {
                 <Post/>
                 <Post/>
                 <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
             </div>
         </div>
     );

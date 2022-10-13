@@ -8,7 +8,10 @@ const App = () => {
     return (
         <div className='app-Wrapper'>
             <Header/>
+            <Header/>
             <Navbar/>
+            <Navbar/>
+            <Profile/>
             <Profile/>
 
         </div>

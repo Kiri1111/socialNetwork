@@ -8,6 +8,7 @@ export const Post = () => {
             post1
             <div>
                 <span>like</span>
+                <span>Disike</span>
             </div>
         </div>
 
