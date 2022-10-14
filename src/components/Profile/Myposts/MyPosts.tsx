@@ -10,10 +10,11 @@ export const MyPosts = () => {
                 New posts
             </div>
             <div className={classes.posts}>
-                <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
+                <Post mesage={'Hello bro!!'} likes={38}/>
+                <Post mesage={'I student It-incubator'} likes={44}/>
+                <Post mesage={'I want to be a student of it-incubator((('} likes={178}/>
+                <Post mesage={'Amazing'} likes={17}/>
+
             </div>
         </div>
     );

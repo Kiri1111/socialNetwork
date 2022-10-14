@@ -1,14 +1,19 @@
 import React from "react";
 import classes from './Post.module.css';
 
-export const Post = () => {
+type PostProps = {
+    mesage: string
+    likes: number
+}
+
+export const Post = (props: PostProps) => {
     return (
         <div className={classes.item}>
-            <img className={classes.img} src={'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png'}/>
-            post1
+            <img className={classes.img}
+                 src={'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png'}/>
+            {props.mesage}
             <div>
-                <span>like</span>
-                <span>Disike</span>
+                <span> {props.likes}  </span>
             </div>
         </div>
 
