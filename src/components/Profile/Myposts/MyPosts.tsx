@@ -8,6 +8,8 @@ export const MyPosts = () => {
             My posts
             <div>
                 New posts
+                <textarea></textarea>
+                    <button>add text</button>
             </div>
             <div className={classes.posts}>
                 <Post mesage={'Hello bro!!'} likes={38}/>

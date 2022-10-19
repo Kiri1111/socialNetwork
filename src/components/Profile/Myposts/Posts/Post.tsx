@@ -13,7 +13,7 @@ export const Post = (props: PostProps) => {
                  src={'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png'}/>
             {props.mesage}
             <div>
-                <span> {props.likes}  </span>
+                <span>  Like </span> {props.likes}
             </div>
         </div>
 
