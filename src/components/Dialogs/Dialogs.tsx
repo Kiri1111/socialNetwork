@@ -1,6 +1,7 @@
 import React from "react";
-import classes from './Dialigs.module.css';
+import classes from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
+import {DialogItem} from "./DialogItem/DialogItem";
 
 type MessagePropsType = {
     text: string
@@ -9,16 +10,8 @@ type MessagePropsType = {
 type DialogsPropsType = {
     name: string
     id: number
-}
 
-let DialogItem = (props: DialogsPropsType) => {
-    return (
-        <div className={classes.dialog + ' ' + classes.active}>
-            <NavLink to={'/dialogs/' + props.id}>{props.name}</NavLink>
-        </div>
-    )
 }
-
 const Message = (props: MessagePropsType) => {
     return (
         <div className={classes.dialog}>{props.text}</div>
