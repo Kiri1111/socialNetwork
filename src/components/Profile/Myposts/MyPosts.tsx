@@ -23,7 +23,7 @@ export const MyPosts = (props: PostsProps) => {
                     <textarea></textarea>
                 </div>
                 <div>
-                    <button>add text</button>
+                    <button>add ttext</button>
                 </div>
             </div>
             <div className={classes.posts}>
