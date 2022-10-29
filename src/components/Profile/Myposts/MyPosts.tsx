@@ -2,14 +2,14 @@ import React from "react";
 import classes from './MyPosts.module.css';
 import {Post} from "./Posts/Post";
 
-export type arrType = {
+export type arrPostsProps = {
 
     id: number,
     post: string
     likes: number
 }
 export type PostsProps = {
-    posts: Array<arrType>
+    posts: Array<arrPostsProps>
 }
 
 export const MyPosts = (props: PostsProps) => {

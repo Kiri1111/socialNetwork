@@ -2,42 +2,32 @@ import React from "react";
 import classes from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
 import {DialogItem} from "./DialogItem/DialogItem";
+import {DialogPageType, RootStateType} from "../../state";
+import {Message} from "./Message/Message";
 
-type MessagePropsType = {
-    text: string
-}
+// type MessagePropsType = {
+//     text: string
+// }
+//
+// export type arrDialogsProps = {
+//     id: number,
+//     name: string
+// }
+//
+// export type DialogsProps = {
+//     dialogs: Array<arrDialogsProps>
+// }
+// const Message = (props: RootStateType) => {
+//     return (
+//         <div className={classes.dialog}>{props.dialogsPages.messages}</div>
+//
+//     )
+// }
 
-type DialogsPropsType = {
-    name: string
-    id: number
+export const Dialogs = (props: DialogPageType) => {
 
-}
-const Message = (props: MessagePropsType) => {
-    return (
-        <div className={classes.dialog}>{props.text}</div>
-
-    )
-}
-
-export const Dialogs = (props: DialogsPropsType) => {
-    let dialogs = [
-        {id: 1, name: 'Dimych'},
-        {id: 2, name: 'Andrey'},
-        {id: 3, name: 'Sveta'},
-        {id: 4, name: 'Sasha'},
-        {id: 5, name: 'Viktor'},
-        {id: 6, name: 'Valera'},
-    ]
-    let messages = [
-        {id: 1, message: 'Hello'},
-        {id: 2, message: 'How are you?'},
-        {id: 3, message: 'Yo!!!!!'},
-        {id: 4, message: 'Yo!!!!!'},
-        {id: 5, message: 'Yo!!!!!'},
-        {id: 6, message: 'Yo!!!!!'},
-    ]
-    let dialogsElements = dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
-    let messagesElement = messages.map(m => <Message text={m.message}/>);
+    let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
+    let messagesElement = props.messages.map(m => <Message id={m.id} message={m.message}/>);
 
     return (
 

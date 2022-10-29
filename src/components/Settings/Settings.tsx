@@ -1,10 +1,10 @@
 import React from "react";
-import classes from './Music.module.css';
+import classes from './Setings.module.css';
 
 export const Settings = () => {
     return (
         <div>
-            Settings
+            <h3 className={classes.settings}>Settings</h3>
         </div>
     )
 }

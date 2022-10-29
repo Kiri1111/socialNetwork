@@ -1,6 +1,7 @@
 
 .app-wrapper {
     margin: 0 auto;
+    height: 800px;
     display: grid;
     width: 1200px;
     grid-template-areas:

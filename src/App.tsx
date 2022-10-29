@@ -2,16 +2,34 @@ import React from 'react';
 import './App.css';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
-import {Profile} from "./components/Profile/Profile";
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import classes from "*.module.css";
 import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
+import {Profile} from "./components/Profile/Profile";
+import {DialogPageType, ProfilePageType, RootStateType, SidebarType} from "./state";
 
-const App = () => {
+// export type arrPostsProps = {
+//     id: number,
+//     post: string,
+//     likes: number
+// }
+// export type PostsProps = {
+//     posts: Array<arrPostsProps>
+// }
+// export type arrDialogsProps = {
+//     id: number,
+//     name: string
+// }
+//
+// export type DialogsProps = {
+//     dialogs: Array<arrDialogsProps>
+// }
 
+type PropsType = ProfilePageType & DialogPageType
+
+const App = (props: PropsType) => {
 
     return (
         <BrowserRouter>
@@ -19,8 +37,13 @@ const App = () => {
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path={'/dialogs'} render={() => <Dialogs name={'11111111'} id={0}/>}/>
-                    <Route path={'/profile'} render={() => <Profile/>}/>
+                    <Route path={'/dialogs'} render={() => <Dialogs
+                        dialogs={props.dialogs}
+                        messages={props.messages}
+                    />}/>
+                    <Route path={'/profile'} render={() => <Profile
+                        posts={props.posts}
+                    />}/>
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>
