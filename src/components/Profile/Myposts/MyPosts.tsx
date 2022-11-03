@@ -21,8 +21,8 @@ export const MyPosts = (props: PostsProps) => {
     let postsElements = props.posts.map(p => <Post mesage={p.post} likes={p.likes}/>)
 
     const onCliCkButtonPostHandler = () => {
-        // let text = newPostElement.current !== null ? newPostElement.current.value : '';
-        let text = newPostElement.current?.value;
+        let text = newPostElement.current !== null ? newPostElement.current.value : '';
+        // let text = newPostElement.current?.value;
         if (text) {
             props.addPost(text)
             // @ts-ignore
