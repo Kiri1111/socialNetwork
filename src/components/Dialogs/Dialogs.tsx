@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import classes from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
 import {DialogItem} from "./DialogItem/DialogItem";
@@ -29,6 +29,14 @@ export const Dialogs = (props: DialogPageType) => {
     let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
     let messagesElement = props.messages.map(m => <Message id={m.id} message={m.message}/>);
 
+    let newPostElementDialog = useRef<HTMLTextAreaElement | null>(null);
+
+    const onCliCkButtonPostHandler = () => {
+        let text = newPostElementDialog.current?.value
+        alert(text)
+        // @ts-ignore
+        newPostElementDialog.current.value = ''
+    }
     return (
 
         <div className={classes.dialogs}>
@@ -38,6 +46,10 @@ export const Dialogs = (props: DialogPageType) => {
             <div className={classes.messages}>
                 {messagesElement}
             </div>
+            <span><textarea
+                ref={newPostElementDialog}
+            ></textarea><button
+                onClick={onCliCkButtonPostHandler}>Отправить</button></span>
         </div>
 
 

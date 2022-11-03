@@ -29,6 +29,7 @@ import {DialogPageType, ProfilePageType, RootStateType} from "./redux/state";
 
 type PropsType = {
     state: RootStateType
+    addPost: (postMessage: string) => void
 }
 
 const App = (props: PropsType) => {
@@ -36,6 +37,7 @@ const App = (props: PropsType) => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
+                <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path={'/dialogs'} render={() => <Dialogs
@@ -44,6 +46,7 @@ const App = (props: PropsType) => {
                     />}/>
                     <Route path={'/profile'} render={() => <Profile
                         posts={props.state.profilePages.posts}
+                        addPost={props.addPost}
                     />}/>
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>

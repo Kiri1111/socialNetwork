@@ -12,12 +12,15 @@ export type arrPostsProps = {
 }
 export type PostsProps = {
     posts: Array<arrPostsProps>
+    addPost: (postMessage: string) => void
 }
-export const Profile = (props: ProfilePageType) => {
+export const Profile = (props: PostsProps) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts posts={props.posts}/>
+            <MyPosts posts={props.posts}
+                     addPost={props.addPost}
+            />
         </div>
 
 
