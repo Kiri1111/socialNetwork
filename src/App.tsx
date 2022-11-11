@@ -8,28 +8,12 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {Profile} from "./components/Profile/Profile";
-import {DialogPageType, ProfilePageType, RootStateType} from "./redux/state";
-
-// export type arrPostsProps = {
-//     id: number,
-//     post: string,
-//     likes: number
-// }
-// export type PostsProps = {
-//     posts: Array<arrPostsProps>
-// }
-// export type arrDialogsProps = {
-//     id: number,
-//     name: string
-// }
-//
-// export type DialogsProps = {
-//     dialogs: Array<arrDialogsProps>
-// }
+import {RootStateType, updateNewPostText} from "./redux/state";
 
 type PropsType = {
     state: RootStateType
     addPost: (postMessage: string) => void
+    updateNewPostText: (newText: string) => void
 }
 
 const App = (props: PropsType) => {
@@ -45,8 +29,10 @@ const App = (props: PropsType) => {
                         messages={props.state.dialogsPage.messages}
                     />}/>
                     <Route path={'/profile'} render={() => <Profile
-                        posts={props.state.profilePages.posts}
+                        profilePages={props.state.profilePages}
                         addPost={props.addPost}
+                        updateNewPostText={props.updateNewPostText}
+
                     />}/>
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>

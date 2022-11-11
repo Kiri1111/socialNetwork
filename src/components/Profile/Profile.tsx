@@ -11,15 +11,18 @@ export type arrPostsProps = {
     likes: number
 }
 export type PostsProps = {
-    posts: Array<arrPostsProps>
+    profilePages: ProfilePageType
     addPost: (postMessage: string) => void
+    updateNewPostText: (newText: string) => void
 }
 export const Profile = (props: PostsProps) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts posts={props.posts}
+            <MyPosts profilePages={props.profilePages.posts}
+                     newPostText={props.profilePages.newPostText}
                      addPost={props.addPost}
+                     updateNewPostText={props.updateNewPostText}
             />
         </div>
 
