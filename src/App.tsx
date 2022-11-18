@@ -8,12 +8,11 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {Profile} from "./components/Profile/Profile";
-import {RootStateType, updateNewPostText} from "./redux/state";
+import {RootStateType} from "./redux/state";
 
 type PropsType = {
     state: RootStateType
-    addPost: (postMessage: string) => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: any) => void
 }
 
 const App = (props: PropsType) => {
@@ -30,8 +29,7 @@ const App = (props: PropsType) => {
                     />}/>
                     <Route path={'/profile'} render={() => <Profile
                         profilePages={props.state.profilePages}
-                        addPost={props.addPost}
-                        updateNewPostText={props.updateNewPostText}
+                        dispatch={props.dispatch}
 
                     />}/>
                     <Route path={'/news'} render={() => <News/>}/>

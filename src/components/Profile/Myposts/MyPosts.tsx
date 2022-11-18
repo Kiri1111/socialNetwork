@@ -12,31 +12,32 @@ export type arrPostsProps = {
 export type PostsProps = {
     profilePages: Array<arrPostsProps>
     newPostText: string
-    addPost: (postMessage: string) => void
-    updateNewPostText: (newText: any) => void
+    dispatch: (action: any) => void
 }
 
 export const MyPosts = (props: PostsProps) => {
 
     // HTMLTextAreaElement | null
+
     let newPostElement = useRef<HTMLTextAreaElement | null>(null)
 
     let postsElements = props.profilePages.map(p => <Post mesage={p.post} likes={p.likes}/>)
 
     const onCliCkButtonPostHandler = () => {
-        //let text = newPostElement.current !== null ? newPostElement.current.value : '';
-        let text = newPostElement.current?.value;
+        let text = newPostElement.current !== null ? newPostElement.current.value : '';
+        //let text = newPostElement.current?.value;
         if (text) {
-            props.addPost(text)
+            props.dispatch({type: 'ADD-POST'})
+
             // @ts-ignore
-            newPostElement.current.value = '';
-            props.updateNewPostText('')
+            // newPostElement.current.value = '';
+            //  props.dispatch({type: 'ADD-POST' })
         }
     }
     const onPostChangeHandler = () => {
         let text = newPostElement.current?.value;
-        props.updateNewPostText(text)
-       
+        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: text})
+
     }
 
     return (

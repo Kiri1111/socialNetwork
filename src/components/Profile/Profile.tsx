@@ -12,8 +12,7 @@ export type arrPostsProps = {
 }
 export type PostsProps = {
     profilePages: ProfilePageType
-    addPost: (postMessage: string) => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: any) => void
 }
 export const Profile = (props: PostsProps) => {
     return (
@@ -21,8 +20,7 @@ export const Profile = (props: PostsProps) => {
             <ProfileInfo/>
             <MyPosts profilePages={props.profilePages.posts}
                      newPostText={props.profilePages.newPostText}
-                     addPost={props.addPost}
-                     updateNewPostText={props.updateNewPostText}
+                     dispatch={props.dispatch}
             />
         </div>
 
