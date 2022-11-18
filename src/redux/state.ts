@@ -84,7 +84,8 @@ let store: StoreType = {
     subscribe(observer: (state: RootStateType) => void) {
         this._callSubscriber = observer
     },
-    
+
+
     dispatch(action) {
         if (action.type === 'ADD-POST') {
             let newPost = {
