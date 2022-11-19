@@ -6,37 +6,30 @@ export type MessageType = {
     id: number
     message: string
 }
-
 export type DialogType = {
     id: number
     name: string
 }
-
 export type PostType = {
     id: number
     post: string
     likes: number
 }
-
 export type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
 }
-
 export type DialogPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
     newMessageBody: string
 }
-
 export type SidebarType = {}
-
 export type RootStateType = {
     profilePages: ProfilePageType
     dialogsPage: DialogPageType
     sidebar: SidebarType
 }
-
 export type StoreType = {
     _state: RootStateType
     _callSubscriber: (_state: RootStateType) => void
@@ -65,11 +58,6 @@ type UpdateNewMessageBodyActionType = {
 // type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageBodyCreator>
 
 export type ActionsType = UpdateNewPostActionType | AddPostActionType | SendMessageType | UpdateNewMessageBodyActionType
-
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
-const SEND_MESSAGE = 'SEND-MESSAGE'
 
 // let rerenderEntireTree = (state: any) => {
 //
@@ -147,18 +135,5 @@ let store: StoreType = {
     },
 
 };
-export const addPostActionCreator = () => ({type: ADD_POST} as const)
-
-export const updateNewPostTextCreator = (text: string) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text
-} as const)
-
-export const sendMessageCreator = () => ({type: SEND_MESSAGE} as const)
-
-export const updateNewMessageBodyCreator = (body: string) => ({
-    type: UPDATE_NEW_MESSAGE_BODY,
-    body: body
-} as const)
 
 export default store;
