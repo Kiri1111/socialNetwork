@@ -1,41 +1,34 @@
-import React, {useRef} from "react";
+import React, {ChangeEvent} from "react";
 import classes from './Dialogs.module.css';
-import {NavLink} from "react-router-dom";
 import {DialogItem} from "./DialogItem/DialogItem";
-import {DialogPageType, RootStateType} from "../../redux/state";
+import {
+    ActionsType,
+    DialogType,
+    MessageType, RootStateType,
+    sendMessageCreator, updateNewMessageBodyCreator
+} from "../../redux/state";
 import {Message} from "./Message/Message";
 
-// type MessagePropsType = {
-//     text: string
-// }
-//
-// export type arrDialogsProps = {
-//     id: number,
-//     name: string
-// }
-//
-// export type DialogsProps = {
-//     dialogs: Array<arrDialogsProps>
-// }
-// const Message = (props: RootStateType) => {
-//     return (
-//         <div className={classes.dialog}>{props.dialogsPages.messages}</div>
-//
-//     )
-// }
+type DialogsPropsType = {
+    dispatch: (actions: ActionsType) => void
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+    state: RootStateType
+}
 
-export const Dialogs = (props: DialogPageType) => {
-
-    let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
-    let messagesElement = props.messages.map(m => <Message id={m.id} message={m.message}/>);
-
-    let newPostElementDialog = useRef<HTMLTextAreaElement | null>(null);
+export const Dialogs = (props: DialogsPropsType) => {
+    const newMessageBody = props.state.dialogsPage.newMessageBody;
+    let dialogsElements = props.dialogs.map(el => <DialogItem name={el.name} id={el.id}/>);
+    let messagesElement = props.messages.map(el => <Message id={el.id} message={el.message}/>);
+    // let newPostElementDialog = useRef<HTMLTextAreaElement>(null);
 
     const onCliCkButtonPostHandler = () => {
-        let text = newPostElementDialog.current?.value
-        alert(text)
-        // @ts-ignore
-        newPostElementDialog.current.value = ''
+        props.dispatch(sendMessageCreator())
+    }
+
+    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        const body = e.currentTarget.value
+        props.dispatch(updateNewMessageBodyCreator(body))
     }
     return (
 
@@ -44,12 +37,17 @@ export const Dialogs = (props: DialogPageType) => {
                 {dialogsElements}
             </div>
             <div className={classes.messages}>
-                {messagesElement}
+                <div>{messagesElement}</div>
+
             </div>
-            <span><textarea
-                ref={newPostElementDialog}
-            ></textarea><button
-                onClick={onCliCkButtonPostHandler}>Отправить</button></span>
+            <div>
+                <textarea value={newMessageBody} onChange={onChangeHandler}
+                    //ref={newPostElementDialog}
+                          placeholder={'Введите ваше сообщение'}></textarea>
+            </div>
+            <div>
+                <button onClick={onCliCkButtonPostHandler}>Отправить</button>
+            </div>
         </div>
 
 

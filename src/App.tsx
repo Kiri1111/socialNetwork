@@ -8,11 +8,11 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {Profile} from "./components/Profile/Profile";
-import {RootStateType} from "./redux/state";
+import {ActionsType, RootStateType} from "./redux/state";
 
 type PropsType = {
     state: RootStateType
-    dispatch: (action: any) => void
+    dispatch: (action: ActionsType) => void
 }
 
 const App = (props: PropsType) => {
@@ -24,8 +24,10 @@ const App = (props: PropsType) => {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path={'/dialogs'} render={() => <Dialogs
+                        dispatch={props.dispatch}
                         dialogs={props.state.dialogsPage.dialogs}
                         messages={props.state.dialogsPage.messages}
+                        state={props.state}
                     />}/>
                     <Route path={'/profile'} render={() => <Profile
                         profilePages={props.state.profilePages}
