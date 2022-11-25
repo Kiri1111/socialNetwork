@@ -1,6 +1,6 @@
 import {profileReducer} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
-import {sidebarReducer} from "./sidebar-reduser";
+import {sideBarReducer} from "./sidebar-reduser";
 
 export type MessageType = {
     id: number
@@ -24,8 +24,8 @@ export type DialogPageType = {
     messages: Array<MessageType>
     newMessageBody: string
 }
-export type SidebarType = {}
-export type RootStateType = {
+export type SidebarType = any
+type RootStateType = {
     profilePages: ProfilePageType
     dialogsPage: DialogPageType
     sidebar: SidebarType
@@ -109,7 +109,7 @@ let store: StoreType = {
     dispatch(action) {
         this._state.profilePages = profileReducer(this._state.profilePages, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        sidebarReducer()
+        this._state.sidebar = sideBarReducer(this._state.sidebar, action)
         this._callSubscriber(this._state)
         // if (action.type === ADD_POST) {
         //     let newPost = {

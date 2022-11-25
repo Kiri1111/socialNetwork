@@ -1,34 +1,28 @@
 import React, {ChangeEvent} from "react";
 import classes from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
-import {
-    ActionsType,
-    DialogType,
-    MessageType, RootStateType,
-} from "../../redux/state";
+import {DialogPageType, ProfilePageType, RootStateType} from "../../redux/redux-store";
 import {Message} from "./Message/Message";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 
 type DialogsPropsType = {
-    dispatch: (actions: ActionsType) => void
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
-    state: RootStateType
+    updateNewMessageBody: (body: string) => void
+    onSendMessageClick: () => void
+    dialogsPage: DialogPageType
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
-    const newMessageBody = props.state.dialogsPage.newMessageBody;
-    let dialogsElements = props.dialogs.map(el => <DialogItem name={el.name} id={el.id}/>);
-    let messagesElement = props.messages.map(el => <Message id={el.id} message={el.message}/>);
-    // let newPostElementDialog = useRef<HTMLTextAreaElement>(null);
+    let state = props.dialogsPage
+    const newMessageBody = state.newMessageBody;
+    let dialogsElements = state.dialogs.map(el => <DialogItem name={el.name} id={el.id}/>);
+    let messagesElement = state.messages.map(el => <Message id={el.id} message={el.message}/>);
 
     const onCliCkButtonPostHandler = () => {
-        props.dispatch(sendMessageCreator())
+        props.onSendMessageClick()
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const body = e.currentTarget.value
-        props.dispatch(updateNewMessageBodyCreator(body))
+        props.updateNewMessageBody(body)
     }
     return (
 
@@ -42,7 +36,6 @@ export const Dialogs = (props: DialogsPropsType) => {
             </div>
             <div>
                 <textarea value={newMessageBody} onChange={onChangeHandler}
-                    //ref={newPostElementDialog}
                           placeholder={'Введите ваше сообщение'}></textarea>
             </div>
             <div>
