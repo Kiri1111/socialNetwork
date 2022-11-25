@@ -17,7 +17,7 @@ export type PostsProps = {
     store: StoreType
 }
 export const Profile = (props: PostsProps) => {
-   
+    console.log({props})
     return (
         <div>
             <ProfileInfo/>

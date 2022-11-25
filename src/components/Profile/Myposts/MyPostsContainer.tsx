@@ -34,20 +34,7 @@ export const MyPostsContainer = (props: PostsProps) => {
     }
 
     return (
-        // <div className={classes.postsBlock}>
-        //     <h3> My posts</h3>
-        //     <div>
-        //         <div>
-        //             <textarea onChange={onPostChangeHandler} ref={newPostElement} value={props.newPostText}/>
-        //         </div>
-        //         <div>
-        //             <button onClick={onCliCkButtonPostHandler}>Добавить пост</button>
-        //         </div>
-        //     </div>
-        //     <div className={classes.posts}>
-        //         {postsElements}
-        //     </div>
-        // </div>
+
         <MyPosts updateNewPostText={onPostChangeHandler}
                  onCliCkButtonPostHandler={onCliCkButtonPostHandler}
                  newPostText={state.profilePage.newPostText}
