@@ -12,6 +12,7 @@ export const Provider = (props: ProviderPropsType) => {
     return (
         <StoreContext.Provider value={props.store}>
             {props.children}
+
         </StoreContext.Provider>
     )
 }
