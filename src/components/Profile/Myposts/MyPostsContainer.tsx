@@ -2,7 +2,8 @@ import React from "react";
 import {ActionsType} from "../../../redux/store";
 import {addPostActionCreator, updateNewPostTextCreator} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
-import {StoreType} from "../../../redux/redux-store";
+import {store, StoreType} from "../../../redux/redux-store";
+import {StoreContext} from "../../../StoreContext";
 
 export type arrPostsProps = {
 
@@ -14,31 +15,34 @@ export type PostsProps = {
     //profilePages: Array<arrPostsProps>
     // newPostText: string
     // dispatch: (action: ActionsType) => void
-    store: StoreType
+    // store: StoreType
 }
 
 
 export const MyPostsContainer = (props: PostsProps) => {
 
-    let state = props.store.getState()
-
-    const onCliCkButtonPostHandler = () => {
-        props.store.dispatch(addPostActionCreator())
-    }
-    const onPostChangeHandler = (text: string) => {
-        // let text = newPostElement.current?.value;
-        // if (text) {
-        let action = updateNewPostTextCreator(text)
-        props.store.dispatch(action)
-        //}
-    }
 
     return (
+        <StoreContext.Consumer>
+            {(store) => {
+                let state = store.getState()
 
-        <MyPosts updateNewPostText={onPostChangeHandler}
-                 onCliCkButtonPostHandler={onCliCkButtonPostHandler}
-                 newPostText={state.profilePage.newPostText}
-                 profilePage={state.profilePage}
-        />
+                const onCliCkButtonPostHandler = () => {
+                    store.dispatch(addPostActionCreator())
+                }
+                const onPostChangeHandler = (text: string) => {
+
+                    let action = updateNewPostTextCreator(text)
+                    store.dispatch(action)
+
+                }
+                return <MyPosts updateNewPostText={onPostChangeHandler}
+                                onCliCkButtonPostHandler={onCliCkButtonPostHandler}
+                                newPostText={state.profilePage.newPostText}
+                                profilePage={state.profilePage}
+                />
+            }
+            }
+        </StoreContext.Consumer>
     );
 }

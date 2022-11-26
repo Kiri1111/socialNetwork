@@ -12,9 +12,8 @@ export type arrPostsProps = {
     likes: number
 }
 export type PostsProps = {
-    // profilePages: ProfilePageType
-    // dispatch: (action: ActionsType) => void
-    store: StoreType
+
+    //  store: StoreType
 }
 export const Profile = (props: PostsProps) => {
     console.log({props})
@@ -22,10 +21,8 @@ export const Profile = (props: PostsProps) => {
         <div>
             <ProfileInfo/>
             <MyPostsContainer
-                store={props.store}
-                // profilePages={props.profilePages.posts}
-                // newPostText={props.profilePages.newPostText}
-                // dispatch={props.dispatch}
+                // store={props.store}
+
             />
         </div>
 

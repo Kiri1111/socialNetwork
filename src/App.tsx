@@ -12,7 +12,7 @@ import {StoreType} from "./redux/redux-store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 type PropsType = {
-    store: StoreType
+    // store: StoreType
     // dispatch: (action: ActionsType) => void
 }
 
@@ -25,10 +25,10 @@ const App = (props: PropsType) => {
             <div className='app-wrapper-content'>
 
                 <Route path={'/dialogs'} render={() => <DialogsContainer
-                    store={props.store}
+                    // store={props.store}
                 />}/>
                 <Route path={'/profile'} render={() => <Profile
-                    store={props.store}
+                    // store={props.store}
                 />}/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>
