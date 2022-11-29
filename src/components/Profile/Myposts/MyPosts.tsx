@@ -1,16 +1,8 @@
 import React, {useRef} from "react";
 import classes from './MyPosts.module.css';
 import {Post} from "./Posts/Post";
-import {ActionsType} from "../../../redux/store";
-import {addPostActionCreator, updateNewPostTextCreator} from "../../../redux/profile-reducer";
-import {ProfilePageType, RootStateType} from "../../../redux/redux-store";
+import {ProfilePageType} from "../../../redux/profile-reducer";
 
-export type arrPostsProps = {
-
-    id: number,
-    post: string
-    likes: number
-}
 export type PostsProps = {
     profilePage: ProfilePageType
     newPostText: string
@@ -20,21 +12,17 @@ export type PostsProps = {
 
 export const MyPosts = (props: PostsProps) => {
     let newPostElement = useRef<HTMLTextAreaElement>(null)
-    console.log(props.profilePage)
 
     let postsElements = props.profilePage.posts.map(p => <Post mesage={p.post} likes={p.likes}/>)
 
     const onCliCkButtonPostHandler = () => {
-        // props.dispatch(addPostActionCreator())
         props.onCliCkButtonPostHandler()
     }
     const onPostChangeHandler = () => {
         let text = newPostElement.current?.value;
         if (text) {
-            // props.dispatch(updateNewPostTextCreator(text))
             props.updateNewPostText(text)
         }
-
     }
 
     return (

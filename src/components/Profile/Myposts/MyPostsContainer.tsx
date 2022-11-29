@@ -1,48 +1,67 @@
 import React from "react";
-import {ActionsType} from "../../../redux/store";
-import {addPostActionCreator, updateNewPostTextCreator} from "../../../redux/profile-reducer";
+import {
+    addPostActionCreator,
+    ProfilePageType,
+    updateNewPostTextCreator
+} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
-import {store, StoreType} from "../../../redux/redux-store";
-import {StoreContext} from "../../../StoreContext";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
+import {AppStateType} from "../../../redux/redux-store";
 
-export type arrPostsProps = {
 
-    id: number,
-    post: string
-    likes: number
+// export const MyPostsContainer = () => {
+//
+//
+//     return (
+//         <StoreContext.Consumer>
+//             {(store) => {
+//                 let state = store.getState()
+//
+//                 const onCliCkButtonPostHandler = () => {
+//                     store.dispatch(addPostActionCreator())
+//                 }
+//                 const onPostChangeHandler = (text: string) => {
+//
+//                     let action = updateNewPostTextCreator(text)
+//                     store.dispatch(action)
+//
+//                 }
+//                 return <MyPosts updateNewPostText={onPostChangeHandler}
+//                                 onCliCkButtonPostHandler={onCliCkButtonPostHandler}
+//                                 newPostText={state.profilePage.newPostText}
+//                                 profilePage={state.profilePage}
+//                 />
+//             }
+//             }
+//         </StoreContext.Consumer>
+//     );
+// }
+type mapStatePropsType = {
+    newPostText: string
+    profilePage: ProfilePageType
 }
-export type PostsProps = {
-    //profilePages: Array<arrPostsProps>
-    // newPostText: string
-    // dispatch: (action: ActionsType) => void
-    // store: StoreType
+
+type mapDispatchProps = {
+    onCliCkButtonPostHandler: () => void
+    updateNewPostText: (text: string) => void
 }
 
-
-export const MyPostsContainer = (props: PostsProps) => {
-
-
-    return (
-        <StoreContext.Consumer>
-            {(store) => {
-                let state = store.getState()
-
-                const onCliCkButtonPostHandler = () => {
-                    store.dispatch(addPostActionCreator())
-                }
-                const onPostChangeHandler = (text: string) => {
-
-                    let action = updateNewPostTextCreator(text)
-                    store.dispatch(action)
-
-                }
-                return <MyPosts updateNewPostText={onPostChangeHandler}
-                                onCliCkButtonPostHandler={onCliCkButtonPostHandler}
-                                newPostText={state.profilePage.newPostText}
-                                profilePage={state.profilePage}
-                />
-            }
-            }
-        </StoreContext.Consumer>
-    );
+const mapStateToProps = (state: AppStateType): mapStatePropsType => {
+    return {
+        newPostText: state.profilePage.newPostText,
+        profilePage: state.profilePage
+    }
 }
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchProps => {
+    return {
+        updateNewPostText: (text: string) => {
+            let action = updateNewPostTextCreator(text)
+            dispatch(action)
+        },
+        onCliCkButtonPostHandler: () => {
+            dispatch(addPostActionCreator())
+        }
+    }
+}
+export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
