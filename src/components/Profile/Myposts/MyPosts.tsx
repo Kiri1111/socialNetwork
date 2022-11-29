@@ -13,7 +13,7 @@ export type PostsProps = {
 export const MyPosts = (props: PostsProps) => {
     let newPostElement = useRef<HTMLTextAreaElement>(null)
 
-    let postsElements = props.profilePage.posts.map(p => <Post mesage={p.post} likes={p.likes}/>)
+    let postsElements = props.profilePage.posts.map(p => <Post key={p.id} mesage={p.post} likes={p.likes}/>)
 
     const onCliCkButtonPostHandler = () => {
         props.onCliCkButtonPostHandler()

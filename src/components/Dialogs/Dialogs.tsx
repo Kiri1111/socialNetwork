@@ -14,8 +14,8 @@ type DialogPropsType = {
 export const Dialogs = (props: DialogPropsType) => {
     let state = props.dialogPage
     const newMessageBody = state.newMessageBody;
-    let dialogsElements = state.dialogs.map(el => <DialogItem name={el.name} id={el.id}/>);
-    let messagesElement = state.messages.map(el => <Message id={el.id} message={el.message}/>);
+    let dialogsElements = state.dialogs.map(el => <DialogItem key={el.id} name={el.name} id={el.id}/>);
+    let messagesElement = state.messages.map(el => <Message key={el.id} id={el.id} message={el.message}/>);
 
     const onCliCkButtonPostHandler = () => {
         props.onSendMessageClick()
