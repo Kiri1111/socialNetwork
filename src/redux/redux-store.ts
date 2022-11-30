@@ -2,6 +2,7 @@ import {combineReducers, createStore} from "redux";
 import {profileReducer} from "./profile-reducer";
 import {dialogReducer} from "./dialog-reducer";
 import {sideBarReducer} from "./sidebar-reduser";
+import {usersReducer} from "./users-reducer";
 
 export type MessageType = {
     id: number
@@ -39,12 +40,12 @@ export type MessageType = {
 //     dispatch: (action: ActionsType) => void
 // }
 
-export type RootStateType = ReturnType<typeof reducer>
 
 let reducer = combineReducers({
     profilePage: profileReducer,
     dialogPage: dialogReducer,
-    sidebarPage: sideBarReducer
+    sidebarPage: sideBarReducer,
+    usersPage: usersReducer
 })
 
 export type AppStateType = ReturnType<typeof reducer>
