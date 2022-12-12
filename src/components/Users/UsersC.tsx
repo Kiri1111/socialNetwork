@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {InitialStateType, UserType} from "../../redux/users-reducer";
 import s from './Users.module.css'
 import axios from "axios";
@@ -6,23 +6,54 @@ import userPhoto from '../../assets/images/avatar.png'
 
 type PropsUsersType = {
     usersPage: InitialStateType
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
     follow: (userId: number) => void
     unFollow: (userId: number) => void
     setUsers: (users: UserType[]) => void
+    setCurrentPage: (currentPage: number) => void
+    setTotalUsersCount: (totalCount: number) => void
 }
 
 class Users extends React.Component<PropsUsersType, any> {
-    
+
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            this.props.setUsers(response.data.items)
-        })
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
     }
 
     render() {
+        const pageCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        const pages = []
+        for (let i = 1; i <= pageCount; i++) {
+            pages.push(i)
+        }
+
         return (
             <>
                 <div>
+                    <div>
+                        {pages.map(el => {
+                            return <span onClick={() => {
+                                this.onPageChanged(el)
+                                this.props.setCurrentPage(el)
+                            }} className={this.props.currentPage == el && s.selectedPage}>{el}</span>
+                        })}
+
+                    </div>
                     {this.props.usersPage.users.map(el =>
 
                         <div key={el.id}>
