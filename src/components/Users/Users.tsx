@@ -1,7 +1,7 @@
 import React from 'react';
-import s from "./Users.module.css";
-import userPhoto from "../../assets/images/avatar.png";
-import {InitialStateType} from "../../redux/users-reducer";
+import s from './Users.module.css';
+import userPhoto from '../../assets/images/avatar.png';
+import {InitialStateType} from '../../redux/users-reducer';
 
 type UsersPropsType = {
     usersPage: InitialStateType
