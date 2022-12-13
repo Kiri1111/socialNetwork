@@ -1,11 +1,19 @@
 import React from "react";
 import classes from './ProfileInfo.module.css';
+import {Preloader} from "../../Common/Preloader/Preloader";
+import profileImg from '../../../assets/images/avatar.png'
 
-export const ProfileInfo = () => {
+type ProfileInfoProps = {
+    profile: any
+}
+export const ProfileInfo = (props: ProfileInfoProps) => {
+    if (!props.profile) {
+        return <Preloader/>
+    }
     return (<div>
             <div>
-                <img className={classes.img}
-                     src={'https://avatars.mds.yandex.net/i?id=3875e451275d24b5ab76574535885efb-4257886-images-thumbs&n=13'}/>
+                <img alt={'avatar photo'} className={classes.img}
+                     src={props.profile.photos?.large ?? profileImg}/>
             </div>
             <div className={classes.discriptionBlock}>
                 avatar
