@@ -46,7 +46,7 @@ type PropsUsersType = {
     isFetching: boolean
 }
 
-class UsersContainerr extends React.Component<PropsUsersType, any> {
+export class UsersContainerr extends React.Component<PropsUsersType, any> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
@@ -121,4 +121,15 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
     }
 }
 
-export const UserContainer = connect(mapStateToProps, mapDispatchToProps)(UsersContainerr)
+
+export const UserContainer = connect(mapStateToProps,
+    mapDispatchToProps
+//     {
+//     setCurrentPageAC,
+//     followAC,
+//     unFollowAC,
+//     setUsersAC,
+//     setTotalUsersCountAC,
+//     toggleIsFetchingAC
+// }
+)(UsersContainerr)
