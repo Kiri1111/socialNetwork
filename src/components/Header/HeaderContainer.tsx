@@ -10,14 +10,14 @@ type MapStateToProps = {
     isAuth: boolean
     login: string
 }
-type MapDispatchPropsType = {
+type MapDispatchToPropsType = {
     setAuthUserDataAC: (id: string, email: string, login: string) => void
 }
 type PathParamType = {
     resultCode?: string
-
 }
-type HeaderPropsType = RouteComponentProps<PathParamType> & MapStateToProps & MapDispatchPropsType
+type HeaderPropsType = RouteComponentProps<PathParamType> & OwnPropsType
+type OwnPropsType = MapStateToProps & MapDispatchToPropsType
 
 class HeaderContainer extends React.Component<HeaderPropsType> {
     componentDidMount() {
