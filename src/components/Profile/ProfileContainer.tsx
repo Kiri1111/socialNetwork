@@ -13,10 +13,10 @@ type PropsType = RouteComponentProps<PathParamType> & OwnPropsType
 type MapStatePropsType = {
     profile: ProfileType
 }
-type mapDispatchPropsType = {
+type MapDispatchPropsType = {
     setUserProfileAC: (profile: ProfileType) => void
 }
-type OwnPropsType = MapStatePropsType & mapDispatchPropsType
+type OwnPropsType = MapStatePropsType & MapDispatchPropsType
 
 class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {

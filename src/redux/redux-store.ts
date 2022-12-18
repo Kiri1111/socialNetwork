@@ -3,6 +3,7 @@ import {profileReducer} from "./profile-reducer";
 import {dialogReducer} from "./dialog-reducer";
 import {sideBarReducer} from "./sidebar-reduser";
 import {usersReducer} from "./users-reducer";
+import {authReducer} from "./auth-reducer";
 
 export type MessageType = {
     id: number
@@ -45,7 +46,8 @@ let reducer = combineReducers({
     profilePage: profileReducer,
     dialogPage: dialogReducer,
     sidebarPage: sideBarReducer,
-    usersPage: usersReducer
+    usersPage: usersReducer,
+    auth: authReducer
 })
 
 export type AppStateType = ReturnType<typeof reducer>
