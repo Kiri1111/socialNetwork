@@ -3,6 +3,7 @@ import s from './Users.module.css';
 import userPhoto from '../../assets/images/avatar.png';
 import {InitialStateType} from '../../redux/users-reducer';
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 type UsersPropsType = {
     usersPage: InitialStateType
@@ -14,6 +15,13 @@ type UsersPropsType = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
 }
+
+const instance = axios.create({
+    withCredentials: true,
+    headers: {
+        'API-KEY': '684eff9d-e0dd-4a17-afd8-b12aca48e4cc'
+    }
+})
 export const Users = (props: UsersPropsType) => {
     let pageCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages: number[] = []
@@ -45,8 +53,22 @@ export const Users = (props: UsersPropsType) => {
 
                     <div>
                         {el.followed
-                            ? <button onClick={() => props.unFollow(el.id)}>unFollow</button>
-                            : <button onClick={() => props.follow(el.id)}>Follow</button>}
+                            ? <button onClick={() => {
+                                instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`)
+                                    .then(response => {
+                                        if (response.data.resultCode == 0) {
+                                            props.unFollow(el.id)
+                                        }
+                                    })
+                            }}>unFollow</button>
+                            : <button onClick={() => {
+                                instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`)
+                                    .then(response => {
+                                        if (response.data.resultCode == 0) {
+                                            props.follow(el.id)
+                                        }
+                                    })
+                            }}>Follow</button>}
 
                     </div>
                 </span>

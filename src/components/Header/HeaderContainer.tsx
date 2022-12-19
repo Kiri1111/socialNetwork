@@ -13,13 +13,10 @@ type MapStateToProps = {
 type MapDispatchToPropsType = {
     setAuthUserDataAC: (id: string, email: string, login: string) => void
 }
-type PathParamType = {
-    resultCode?: string
-}
-type HeaderPropsType = RouteComponentProps<PathParamType> & OwnPropsType
+
 type OwnPropsType = MapStateToProps & MapDispatchToPropsType
 
-class HeaderContainer extends React.Component<HeaderPropsType> {
+class HeaderContainer extends React.Component<OwnPropsType> {
     componentDidMount() {
         axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
             .then(response => {
