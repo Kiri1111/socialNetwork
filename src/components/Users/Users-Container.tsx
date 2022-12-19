@@ -69,7 +69,6 @@ class UsersContainer extends React.Component<PropsUsersType> {
             .then(data => {
                 this.props.setUsers(data.items)
                 this.props.toggleIsFetching(false)
-                // this.props.setTotalUsersCount(response.data.totalCount)
             })
     }
 
@@ -133,14 +132,4 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
 }
 
 
-export default connect(mapStateToProps,
-    mapDispatchToProps
-//     {
-//     setCurrentPageAC,
-//     followAC,
-//     unFollowAC,
-//     setUsersAC,
-//     setTotalUsersCountAC,
-//     toggleIsFetchingAC
-// }
-)(UsersContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
