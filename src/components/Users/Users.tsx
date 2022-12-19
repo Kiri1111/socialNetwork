@@ -3,7 +3,7 @@ import s from './Users.module.css';
 import userPhoto from '../../assets/images/avatar.png';
 import {InitialStateType} from '../../redux/users-reducer';
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+import {followChange, unFollowChange} from "../../api/api";
 
 type UsersPropsType = {
     usersPage: InitialStateType
@@ -14,14 +14,11 @@ type UsersPropsType = {
     setCurrentPage: (currentPage: number) => void
     follow: (userId: number) => void
     unFollow: (userId: number) => void
+    followingProgress: (followingInProgress: boolean) => void
+    followingInProgress: boolean
 }
 
-const instance = axios.create({
-    withCredentials: true,
-    headers: {
-        'API-KEY': '684eff9d-e0dd-4a17-afd8-b12aca48e4cc'
-    }
-})
+
 export const Users = (props: UsersPropsType) => {
     let pageCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages: number[] = []
@@ -53,20 +50,24 @@ export const Users = (props: UsersPropsType) => {
 
                     <div>
                         {el.followed
-                            ? <button onClick={() => {
-                                instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`)
-                                    .then(response => {
-                                        if (response.data.resultCode == 0) {
+                            ? <button disabled={props.followingInProgress} onClick={() => {
+                                props.followingProgress(true)
+                                unFollowChange(el.id)
+                                    .then(data => {
+                                        if (data.resultCode == 0) {
                                             props.unFollow(el.id)
                                         }
+                                        props.followingProgress(false)
                                     })
                             }}>unFollow</button>
-                            : <button onClick={() => {
-                                instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`)
-                                    .then(response => {
-                                        if (response.data.resultCode == 0) {
+                            : <button disabled={props.followingInProgress} onClick={() => {
+                                props.followingProgress(true)
+                                followChange(el.id)
+                                    .then(data => {
+                                        if (data.resultCode == 0) {
                                             props.follow(el.id)
                                         }
+                                        props.followingProgress(false)
                                     })
                             }}>Follow</button>}
 
