@@ -1,9 +1,10 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {profileReducer} from "./profile-reducer";
 import {dialogReducer} from "./dialog-reducer";
 import {sideBarReducer} from "./sidebar-reduser";
 import {usersReducer} from "./users-reducer";
 import {authReducer} from "./auth-reducer";
+import thunkMiddleware from "redux-thunk"
 
 export type MessageType = {
     id: number
@@ -52,4 +53,4 @@ let reducer = combineReducers({
 
 export type AppStateType = ReturnType<typeof reducer>
 
-export let store = createStore(reducer)
+export let store = createStore(reducer, applyMiddleware(thunkMiddleware))

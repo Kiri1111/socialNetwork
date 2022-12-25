@@ -1,3 +1,6 @@
+import {followChange, getUsers, unFollowChange} from "../api/api";
+import {Dispatch} from "redux";
+
 const initialState = {
     users: [],
     pageSize: 5,
@@ -68,19 +71,19 @@ export type AllActionType =
     | SetTotalUsersCountACType
     | ToggleIsFetchingACType
     | ToggleIsFollowingACType
-export type FollowACType = ReturnType<typeof followAC>
-export type UnFollowACType = ReturnType<typeof unFollowAC>
+export type FollowACType = ReturnType<typeof acceptFollowAC>
+export type UnFollowACType = ReturnType<typeof acceptUnFollowAC>
 export type SetUsersACType = ReturnType<typeof setUsersAC>
 export type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>
 export type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>
 export type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
 export type ToggleIsFollowingACType = ReturnType<typeof toggleIsFollowingAC>
 
-export const followAC = (userId: number) => ({
+export const acceptFollowAC = (userId: number) => ({
     type: 'FOLLOW',
     userId
 } as const)
-export const unFollowAC = (userId: number) => ({
+export const acceptUnFollowAC = (userId: number) => ({
     type: 'UN-FOLLOW',
     userId
 } as const)
@@ -104,3 +107,39 @@ export const toggleIsFollowingAC = (following: boolean) => ({
     type: 'TOGGLE-IS-FOLLOWING',
     following
 } as const)
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFetchingAC(true))
+        getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(toggleIsFetchingAC(false))
+                dispatch(setUsersAC(data.items))
+                dispatch(setTotalUsersCountAC(data.totalCount))
+            })
+    }
+}
+export const follow = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFollowingAC(true))
+        followChange(userId)
+            .then(response => {
+                if (response.data.resultCode == 0) {
+                    dispatch(acceptFollowAC(userId))
+                }
+                dispatch(toggleIsFollowingAC(false))
+            })
+    }
+}
+export const unFollow = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFollowingAC(true))
+        unFollowChange(userId)
+            .then(response => {
+                if (response.data.resultCode == 0) {
+                    dispatch(acceptUnFollowAC(userId))
+                }
+                dispatch(toggleIsFollowingAC(false))
+            })
+    }
+}
