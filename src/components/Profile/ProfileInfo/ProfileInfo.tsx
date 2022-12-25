@@ -21,6 +21,8 @@ export const ProfileInfo = (props: ProfileInfoProps) => {
             <div className={classes.discriptionBlock}>
                 <h3>{props.profile.fullName}</h3>
                 <h4>{props.profile.lookingForAJobDescription}</h4>
+                <h4>{props.profile.lookingForAJobDescription}</h4>
+                <h4>{props.profile.aboutMe}</h4>
             </div>
         </div>
 
