@@ -7,7 +7,7 @@ const initialState = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: false
+    isFollowing: false
 }
 export type UsersLocation = {
     city: string
@@ -30,7 +30,7 @@ export type InitialStateType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: boolean
+    isFollowing: boolean
 
 }
 export const usersReducer = (state: InitialStateType = initialState, action: AllActionType): InitialStateType => {
@@ -54,12 +54,11 @@ export const usersReducer = (state: InitialStateType = initialState, action: All
             return {...state, isFetching: action.isFetching}
         }
         case 'TOGGLE-IS-FOLLOWING': {
-            return {...state, followingInProgress: action.following}
+            return {...state, isFollowing: action.following}
         }
         default:
             return state
     }
-
 
 };
 

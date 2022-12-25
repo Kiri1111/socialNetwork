@@ -3,7 +3,6 @@ import s from './Users.module.css';
 import userPhoto from '../../assets/images/avatar.png';
 import {InitialStateType} from '../../redux/users-reducer';
 import {NavLink} from "react-router-dom";
-import {followChange, unFollowChange} from "../../api/api";
 
 type UsersPropsType = {
     usersPage: InitialStateType
@@ -14,9 +13,8 @@ type UsersPropsType = {
     setCurrentPage: (currentPage: number) => void
     follow: (userId: number) => void
     unFollow: (userId: number) => void
-    followingInProgress: boolean
+    isFollowing: boolean
 }
-
 
 export const Users = (props: UsersPropsType) => {
     let pageCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -50,10 +48,10 @@ export const Users = (props: UsersPropsType) => {
 
                     <div>
                         {el.followed
-                            ? <button disabled={props.followingInProgress} onClick={() => {
+                            ? <button disabled={props.isFollowing} onClick={() => {
                                 props.unFollow(el.id)
                             }}>unFollow</button>
-                            : <button disabled={props.followingInProgress} onClick={() => {
+                            : <button disabled={props.isFollowing} onClick={() => {
                                 props.follow(el.id)
                             }}>Follow</button>}
 
@@ -63,6 +61,7 @@ export const Users = (props: UsersPropsType) => {
                     <span>
                         <div>{el.name}</div>
                         <div>{el.status}</div>
+
                     </span>
                     <span>
                         <div>{'el.location.city'}</div>

@@ -19,7 +19,8 @@ export const ProfileInfo = (props: ProfileInfoProps) => {
                      src={props.profile.photos?.large ?? undefPhoto}/>
             </div>
             <div className={classes.discriptionBlock}>
-                avatar
+                <h3>{props.profile.fullName}</h3>
+                <h4>{props.profile.lookingForAJobDescription}</h4>
             </div>
         </div>
 

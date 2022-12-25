@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {getProfile} from "../api/api";
+
 type AddPostActionType = {
     type: 'ADD-POST'
 }
@@ -45,7 +48,7 @@ export type ProfileType = {
     lookingForAJob: boolean,
     lookingForAJobDescription: string,
     fullName: string,
-    userId: number,
+    userId: string,
     photos: PhotosType
 }
 type ContactsType = {
@@ -104,3 +107,9 @@ export const setUserProfileAC = (profile: any) => ({
     type: 'SET-USER-PROFILE',
     profile
 } as const)
+export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
+    getProfile(userId)
+        .then(response => {
+            dispatch(setUserProfileAC(response.data))
+        })
+}

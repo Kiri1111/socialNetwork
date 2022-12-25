@@ -14,9 +14,15 @@ export const getUsers = (currentPage: number, pageSize: number) => {
 }
 export const followChange = (userId: number) => {
     return instance.post(`follow/${userId}`)
-    // .then(response => response.data)
 }
 export const unFollowChange = (userId: number) => {
     return instance.delete(`follow/${userId}`)
-    // .then(response => response.data)
+}
+export const getProfile = (userId: string) => {
+    return instance.get(`profile/` + userId)
+}
+export const authAPI = {
+    me() {
+        return instance.get(`auth/me`)
+    }
 }
