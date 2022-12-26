@@ -39,11 +39,13 @@ type mapDispatchPropsType = {
 }
 type MapStatePropsType = {
     dialogPage: InitialStateType
+    isAuth: boolean
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        dialogPage: state.dialogPage
+        dialogPage: state.dialogPage,
+        isAuth: state.auth.isAuth
     }
 }
 
