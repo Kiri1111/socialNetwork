@@ -1,10 +1,10 @@
 import React from "react";
-import classes from './Music.module.css';
 
 export const Music = () => {
     return (
         <div>
-            Мызыка
+            <h2> This page is under development, sorry(</h2>
+            <img src="https://www.brk.by/wp-content/uploads/2015/01/razrab.jpg" alt="crashPage"/>
         </div>
     )
 }

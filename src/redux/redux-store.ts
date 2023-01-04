@@ -5,6 +5,7 @@ import {sideBarReducer} from "./sidebar-reduser";
 import {usersReducer} from "./users-reducer";
 import {authReducer} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk"
+import {reducer as formReducer} from "redux-form";
 
 export type MessageType = {
     id: number
@@ -48,7 +49,8 @@ let reducer = combineReducers({
     dialogPage: dialogReducer,
     sidebarPage: sideBarReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+    form: formReducer
 })
 
 export type AppStateType = ReturnType<typeof reducer>
