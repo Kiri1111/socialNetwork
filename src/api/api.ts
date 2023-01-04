@@ -21,6 +21,14 @@ export const unFollowChange = (userId: number) => {
 export const getProfile = (userId: string) => {
     return instance.get(`profile/` + userId)
 }
+export const profileApi = {
+    getStatus(userId: number) {
+        return instance.get(`status/` + userId)
+    },
+    updateStatus(status: string) {
+        return instance.put(`status`, {status})
+    }
+}
 export const authAPI = {
     me() {
         return instance.get(`auth/me`)
