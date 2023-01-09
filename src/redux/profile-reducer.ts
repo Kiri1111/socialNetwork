@@ -11,7 +11,7 @@ type UpdateNewPostActionType = {
 }
 type SetStatusType = ReturnType<typeof setStatus>
 type SetUserProfile = ReturnType<typeof setUserProfileAC>
-export type ActionsType = UpdateNewPostActionType | AddPostActionType | SetUserProfile | SetStatusType
+export type ProfileActionsType = UpdateNewPostActionType | AddPostActionType | SetUserProfile | SetStatusType
 export type PostType = {
     id: number
     post: string
@@ -52,7 +52,7 @@ let initialState = {
     status: ''
 }
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionsType): ProfilePageType => {
     switch (action.type) {
         case "ADD-POST": {
             let newPost = {

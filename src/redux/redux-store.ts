@@ -1,10 +1,10 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {profileReducer} from "./profile-reducer";
-import {dialogReducer} from "./dialog-reducer";
+import {ProfileActionsType, profileReducer} from "./profile-reducer";
+import {dialogReducer, DialogsActionsType} from "./dialog-reducer";
 import {sideBarReducer} from "./sidebar-reduser";
-import {usersReducer} from "./users-reducer";
-import {authReducer} from "./auth-reducer";
-import thunkMiddleware from "redux-thunk"
+import {UsersActionType, usersReducer} from "./users-reducer";
+import {AuthActionType, authReducer} from "./auth-reducer";
+import thunkMiddleware, {ThunkAction} from "redux-thunk"
 import {reducer as formReducer} from "redux-form";
 
 export type MessageType = {
@@ -54,5 +54,9 @@ let reducer = combineReducers({
 })
 
 export type AppStateType = ReturnType<typeof reducer>
+
+type RootActionType = AuthActionType | DialogsActionsType | ProfileActionsType | UsersActionType
+
+export type RootThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, RootActionType>
 
 export let store = createStore(reducer, applyMiddleware(thunkMiddleware))

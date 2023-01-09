@@ -33,7 +33,7 @@ export type InitialStateType = {
     isFollowing: boolean
 
 }
-export const usersReducer = (state: InitialStateType = initialState, action: AllActionType): InitialStateType => {
+export const usersReducer = (state: InitialStateType = initialState, action: UsersActionType): InitialStateType => {
     switch (action.type) {
         case "FOLLOW": {
             return {...state, users: state.users.map(el => el.id === action.userId ? {...el, followed: true} : el)}
@@ -62,7 +62,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: All
 
 };
 
-export type AllActionType =
+export type UsersActionType =
     FollowACType
     | UnFollowACType
     | SetUsersACType

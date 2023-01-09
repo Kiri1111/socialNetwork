@@ -22,13 +22,7 @@ type HeaderPropsType = {
 class HeaderContainer extends React.Component<HeaderPropsType> {
     componentDidMount() {
         this.props.getAuthUserData()
-        // authAPI.me()
-        //     .then(response => {
-        //         if (response.data.resultCode === 0) {
-        //             const {id, email, login} = response.data.data
-        //             this.props.setAuthUserDataAC(id, email, login)
-        //         }
-        //     })
+
     }
 
     render() {

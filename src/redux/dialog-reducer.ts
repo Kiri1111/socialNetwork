@@ -2,7 +2,7 @@ type SendMessageType = {
     type: 'SEND-MESSAGE'
     newMessageBody: string
 }
-export type ActionsType = SendMessageType
+export type DialogsActionsType = SendMessageType
 export type MessageType = {
     id: number
     message: string
@@ -33,7 +33,7 @@ let initialState = {
 
 export type InitialStateType = typeof initialState
 
-export const dialogReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const dialogReducer = (state: InitialStateType = initialState, action: DialogsActionsType): InitialStateType => {
     switch (action.type) {
         case "SEND-MESSAGE": {
             const newMessage = {
