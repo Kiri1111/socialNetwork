@@ -1,6 +1,6 @@
-import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
 import {RootThunkType} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 const initialState = {
 
@@ -37,7 +37,7 @@ export const setAuthUserDataAC = (id: string, email: string, login: string, isAu
         isAuth
     }
 } as const)
-export const getAuthUserData = () => (dispatch: Dispatch) => {
+export const getAuthUserData = (): RootThunkType => (dispatch) => {
     authAPI.me()
         .then(response => {
             if (response.data.resultCode === 0) {
@@ -51,10 +51,13 @@ export const login = (email: string, password: string, rememberMe: boolean): Roo
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUserData())
+            } else {
+                const message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some ERROR'
+                dispatch(stopSubmit('login', {_error: message}))
             }
         })
 }
-export const logOut = () => (dispatch: Dispatch) => {
+export const logOut = (): RootThunkType => (dispatch) => {
     authAPI.logOut()
         .then(response => {
             if (response.data.resultCode === 0) {
