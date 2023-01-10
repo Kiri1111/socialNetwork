@@ -44,7 +44,7 @@ export type MessageType = {
 // }
 
 
-let reducer = combineReducers({
+let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogPage: dialogReducer,
     sidebarPage: sideBarReducer,
@@ -53,10 +53,10 @@ let reducer = combineReducers({
     form: formReducer
 })
 
-export type AppStateType = ReturnType<typeof reducer>
+export type AppStateType = ReturnType<typeof rootReducer>
 
 type RootActionType = AuthActionType | DialogsActionsType | ProfileActionsType | UsersActionType
 
 export type RootThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, RootActionType>
 
-export let store = createStore(reducer, applyMiddleware(thunkMiddleware))
+export let store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
