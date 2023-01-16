@@ -38,7 +38,7 @@ export const setAuthUserDataAC = (id: string, email: string, login: string, isAu
     }
 } as const)
 export const getAuthUserData = (): RootThunkType => (dispatch) => {
-    authAPI.me()
+    return authAPI.me()
         .then(response => {
             if (response.data.resultCode === 0) {
                 const {id, email, login} = response.data.data

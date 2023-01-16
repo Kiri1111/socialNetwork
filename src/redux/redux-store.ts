@@ -7,6 +7,7 @@ import {AuthActionType, authReducer} from "./auth-reducer";
 import thunkMiddleware, {ThunkAction} from "redux-thunk"
 import {reducer as formReducer} from "redux-form";
 import {FormAction} from "redux-form/lib/actions";
+import {AppActionsType, appReducer} from "./app-reducer";
 
 export type MessageType = {
     id: number
@@ -51,12 +52,19 @@ let rootReducer = combineReducers({
     sidebarPage: sideBarReducer,
     usersPage: usersReducer,
     auth: authReducer,
+    app: appReducer,
     form: formReducer
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
-type RootActionType = AuthActionType | DialogsActionsType | ProfileActionsType | UsersActionType | FormAction
+type RootActionType =
+    AuthActionType
+    | DialogsActionsType
+    | ProfileActionsType
+    | UsersActionType
+    | FormAction
+    | AppActionsType
 
 export type RootThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, RootActionType>
 

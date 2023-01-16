@@ -10,24 +10,48 @@ import UsersContainer from "./components/Users/Users-Container";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
+import {connect} from "react-redux";
+import {initializeApp} from "./redux/app-reducer";
+import {AppStateType} from "./redux/redux-store";
+import {Preloader} from "./components/Common/Preloader/Preloader";
 
-const App = () => {
+type AppProps = {
+    initializeApp: () => void
+    initialized: boolean
+}
 
-    return (
+class App extends React.Component<AppProps> {
+    componentDidMount() {
+        this.props.initializeApp()
+    }
 
-        <div className='app-wrapper'>
-            <HeaderContainer/>
-            <Navbar/>
-            <div className='app-wrapper-content'>
-                <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
-                <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
-                <Route path={'/users'} render={() => <UsersContainer/>}/>
-                <Route path={'/news'} render={() => <News/>}/>
-                <Route path={'/music'} render={() => <Music/>}/>
-                <Route path={'/setting'} render={() => <Settings/>}/>
-                <Route path={'/login'} render={() => <Login/>}/>
+    render() {
+
+        if (!this.props.initialized) {
+            return <Preloader/>
+        }
+        return (
+
+            <div className='app-wrapper'>
+                <HeaderContainer/>
+                <Navbar/>
+                <div className='app-wrapper-content'>
+                    <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                    <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
+                    <Route path={'/users'} render={() => <UsersContainer/>}/>
+                    <Route path={'/news'} render={() => <News/>}/>
+                    <Route path={'/music'} render={() => <Music/>}/>
+                    <Route path={'/setting'} render={() => <Settings/>}/>
+                    <Route path={'/login'} render={() => <Login/>}/>
+                </div>
             </div>
-        </div>
-    )
-};
-export default App;
+        )
+    }
+}
+
+const mapStateToProps = (state: AppStateType) => ({
+    initialized: state.app.initialized
+})
+
+
+export default connect(mapStateToProps, {initializeApp})(App);
