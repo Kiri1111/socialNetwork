@@ -12,7 +12,6 @@ export const ProfileStatus = (props: StatusPropsType) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
     }
-    console.log('props?.status', props?.status)
 
     const onClickHandler = () => {
         setEditeMode(true)
@@ -46,8 +45,6 @@ export const ProfileStatus = (props: StatusPropsType) => {
                                placeholder={'Enter your status'} onKeyPress={onKeyPressHandler} autoFocus={true}/>
                     </div>
             }
-
-
         </>
     );
 };

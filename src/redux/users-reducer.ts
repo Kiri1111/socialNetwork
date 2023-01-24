@@ -123,7 +123,7 @@ export const follow = (userId: number) => {
         dispatch(toggleIsFollowingAC(true))
         followChange(userId)
             .then(response => {
-                if (response.data.resultCode == 0) {
+                if (response.data.resultCode === 0) {
                     dispatch(acceptFollowAC(userId))
                 }
                 dispatch(toggleIsFollowingAC(false))
@@ -135,7 +135,7 @@ export const unFollow = (userId: number) => {
         dispatch(toggleIsFollowingAC(true))
         unFollowChange(userId)
             .then(response => {
-                if (response.data.resultCode == 0) {
+                if (response.data.resultCode === 0) {
                     dispatch(acceptUnFollowAC(userId))
                 }
                 dispatch(toggleIsFollowingAC(false))

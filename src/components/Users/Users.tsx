@@ -31,7 +31,7 @@ export const Users = (props: UsersPropsType) => {
                         return <span key={index} onClick={() => {
                             props.onPageChanged(el)
                             props.setCurrentPage(el)
-                        }} className={props.currentPage == el ? s.selectedPage : ''}>{el}</span>
+                        }} className={props.currentPage === el ? s.selectedPage : ''}>{el}</span>
                     })}
 
                 </div>
