@@ -1,8 +1,7 @@
 import React from 'react';
-import s from './Users.module.css';
-import userPhoto from '../../assets/images/avatar.png';
 import {InitialStateType} from '../../redux/users-reducer';
-import {NavLink} from "react-router-dom";
+import {Paginator} from "../Common/Paginator/Paginator";
+import {User} from "./User";
 
 type UsersPropsType = {
     usersPage: InitialStateType
@@ -22,55 +21,23 @@ export const Users = (props: UsersPropsType) => {
     for (let i = 1; i <= pageCount; i++) {
         pages.push(i)
     }
-    console.log(props)
-    return (
-        <div>
-            <div>
-                <div>
-                    {pages.map((el: number, index: number) => {
-                        return <span key={index} onClick={() => {
-                            props.onPageChanged(el)
-                            props.setCurrentPage(el)
-                        }} className={props.currentPage === el ? s.selectedPage : ''}>{el}</span>
-                    })}
+    return <div>
+        <Paginator totalUsersCount={props.totalUsersCount}
+                   pageSize={props.pageSize}
+                   currentPage={props.currentPage}
+                   onPageChanged={props.onPageChanged}
+                   setCurrentPage={props.setCurrentPage}
+        />
+        {props.usersPage.users.map(el =>
+            <User key={el.id}
+                  follow={props.follow}
+                  unFollow={props.unFollow}
+                  isFollowing={props.isFollowing}
+                  user={el}
+            />
+        )
+        }
+    </div>
 
-                </div>
-                {props.usersPage.users.map(el =>
-
-                    <div key={el.id}>
-                <span>
-                    <div>
-                        <NavLink to={'/profile/' + el.id}>
-                        <img alt={'img avatar'} className={s.userPhoto}
-                             src={el.photos.small != null ? el.photos.small : userPhoto}/>
-                            </NavLink>
-                    </div>
-
-                    <div>
-                        {el.followed
-                            ? <button disabled={props.isFollowing} onClick={() => {
-                                props.unFollow(el.id)
-                            }}>unFollow</button>
-                            : <button disabled={props.isFollowing} onClick={() => {
-                                props.follow(el.id)
-                            }}>Follow</button>}
-
-                    </div>
-                </span>
-                        <span>
-                    <span>
-                        <div>{el.name}</div>
-                        <div>{el.status}</div>
-
-                    </span>
-                    <span>
-                        <div>{'el.location.city'}</div>
-                        <div>{'el.location.country'}</div>
-                    </span>
-                </span>
-                    </div>)}
-            </div>
-        </div>
-    )
 }
 

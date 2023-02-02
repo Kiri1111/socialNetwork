@@ -2,7 +2,7 @@ import {Dispatch} from "redux";
 import {getProfile, profileApi} from "../api/api";
 
 type AddPostActionType = {
-    type: 'ADD-POST'
+    type: "profile/ADD-POST"
     formData: string
 }
 type UpdateNewPostActionType = {
@@ -59,7 +59,7 @@ let initialState = {
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionsType): ProfilePageType => {
     switch (action.type) {
-        case "ADD-POST": {
+        case "profile/ADD-POST": {
             let newPost = {
                 id: 3,
                 post: action.formData,
@@ -67,13 +67,13 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
             }
             return {...state, posts: [newPost, ...state.posts], newPostText: ''}
         }
-        case 'SET-USER-PROFILE': {
+        case 'profile/SET-USER-PROFILE': {
             return {...state, profile: action.profile}
         }
-        case "SET_STATUS": {
+        case "profile/SET_STATUS": {
             return {...state, status: action.status}
         }
-        case "DELETE-POST":
+        case "profile/DELETE-POST":
             return {...state, posts: state.posts.filter(el => el.id !== action.id)}
         default:
             return state
@@ -81,38 +81,32 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
 }
 
 ///////////      ACTION CREATORS     ///////////////
-export const addPostActionCreator = (formData: string) => ({type: "ADD-POST", formData} as const)
-export const deletePostActionCreator = (id: number) => ({type: "DELETE-POST", id} as const)
+export const addPostActionCreator = (formData: string) => ({type: "profile/ADD-POST", formData} as const)
+export const deletePostActionCreator = (id: number) => ({type: "profile/DELETE-POST", id} as const)
 export const setUserProfileAC = (profile: any) => ({
-    type: 'SET-USER-PROFILE',
+    type: 'profile/SET-USER-PROFILE',
     profile
 } as const)
 export const setStatus = (status: string) => {
     return {
-        type: 'SET_STATUS',
+        type: 'profile/SET_STATUS',
         status
     } as const
 }
 
 ////////////// THUNKS CREATORS   ///////////////////////
 
-export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
-    getProfile(userId)
-        .then(response => {
-            dispatch(setUserProfileAC(response.data))
-        })
+export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
+    const response = await getProfile(userId)
+    dispatch(setUserProfileAC(response.data))
 }
-export const getStatus = (userId: number) => (dispatch: Dispatch) => {
-    profileApi.getStatus(userId)
-        .then(response => {
-            dispatch(setStatus(response.data))
-        })
+export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
+    const response = await profileApi.getStatus(userId)
+    dispatch(setStatus(response.data))
 }
-export const updateStatus = (status: string) => (dispatch: Dispatch) => {
-    profileApi.updateStatus(status)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setStatus(status))
-            }
-        })
+export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
+    const response = await profileApi.updateStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(setStatus(status))
+    }
 }
