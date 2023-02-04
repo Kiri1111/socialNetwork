@@ -15,9 +15,6 @@ export const ProfileInfo = (props: ProfileInfoProps) => {
         return <Preloader/>
     }
     return (<div>
-            {/*<div>*/}
-            {/*    <img alt={'photo'} src={'https://img1.badfon.ru/wallpaper/big/9/ca/zakat-derevo-peyzazh-6049.jpg'}/>*/}
-            {/*</div>*/}
             <div className={classes.discriptionBlock}>
                 <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
 
